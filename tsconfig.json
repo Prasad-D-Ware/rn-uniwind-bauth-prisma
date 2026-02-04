@@ -1,0 +1,3 @@
+{
+  "extends": "@rn-uniwind-bauth-prisma/config/tsconfig.base.json"
+}

@@ -1,0 +1,17 @@
+{
+  "expo": {
+    "scheme": "rn-uniwind-bauth-prisma",
+    "userInterfaceStyle": "automatic",
+    "orientation": "default",
+    "web": {
+      "bundler": "metro"
+    },
+    "name": "rn-uniwind-bauth-prisma",
+    "slug": "rn-uniwind-bauth-prisma",
+    "plugins": ["expo-font"],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    }
+  }
+}

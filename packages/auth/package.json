@@ -1,0 +1,25 @@
+{
+  "name": "@rn-uniwind-bauth-prisma/auth",
+  "type": "module",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    },
+    "./*": {
+      "default": "./src/*.ts"
+    }
+  },
+  "scripts": {},
+  "dependencies": {
+    "@better-auth/expo": "catalog:",
+    "@rn-uniwind-bauth-prisma/db": "workspace:*",
+    "@rn-uniwind-bauth-prisma/env": "workspace:*",
+    "better-auth": "catalog:",
+    "dotenv": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@rn-uniwind-bauth-prisma/config": "workspace:*",
+    "typescript": "catalog:"
+  }
+}
