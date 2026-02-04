@@ -12,6 +12,7 @@ export const auth = betterAuth({
   trustedOrigins: [
     env.CORS_ORIGIN,
     "mybettertapp://",
+    "rn-uniwind-bauth-prisma://",
     ...(env.NODE_ENV === "development"
       ? ["exp://", "exp://**", "exp://192.168.*.*:*/**", "http://localhost:8081"]
       : []),
@@ -19,11 +20,22 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
+  socialProviders: {
+    google: {
+      clientId: env.GOOGLE_CLIENT_ID,
+      clientSecret: env.GOOGLE_CLIENT_SECRET,
+      redirectURI: `${env.BETTER_AUTH_URL}/api/auth/callback/google`,
+    },
+  },
+  callbackURL: `${env.BETTER_AUTH_URL}/api/auth/callback`,
   advanced: {
     defaultCookieAttributes: {
-      sameSite: "none",
-      secure: true,
+      sameSite: env.NODE_ENV === "development" ? "lax" : "none",
+      secure: env.NODE_ENV !== "development",
       httpOnly: true,
+    },
+    crossSubDomainCookies: {
+      enabled: true,
     },
   },
   plugins: [expo()],

@@ -1,27 +1,49 @@
-import { cn } from "heroui-native";
-import { type PropsWithChildren } from "react";
-import { ScrollView, View, type ViewProps } from "react-native";
-import Animated, { type AnimatedProps } from "react-native-reanimated";
+import { ScrollView, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { tv } from "tailwind-variants";
 
-const AnimatedView = Animated.createAnimatedComponent(View);
+const containerStyles = tv({
+  base: "flex-1 bg-background",
+  variants: {
+    scrollable: {
+      true: "",
+      false: "",
+    },
+  },
+  defaultVariants: {
+    scrollable: false,
+  },
+});
 
-type Props = AnimatedProps<ViewProps> & {
+interface ContainerProps {
+  children: React.ReactNode;
   className?: string;
-};
+  scrollable?: boolean;
+}
 
-export function Container({ children, className, ...props }: PropsWithChildren<Props>) {
+export function Container({ children, className, scrollable = false }: ContainerProps) {
   const insets = useSafeAreaInsets();
-
-  return (
-    <AnimatedView
-      className={cn("flex-1 bg-background", className)}
-      style={{
-        paddingBottom: insets.bottom,
-      }}
-      {...props}
+  
+  const content = (
+    <View 
+      className={containerStyles({ scrollable, className })}
+      style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}
     >
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>{children}</ScrollView>
-    </AnimatedView>
+      {children}
+    </View>
   );
+
+  if (scrollable) {
+    return (
+      <ScrollView 
+        className="flex-1 bg-background"
+        contentContainerStyle={{ flexGrow: 1 }}
+        keyboardShouldPersistTaps="handled"
+      >
+        {content}
+      </ScrollView>
+    );
+  }
+
+  return content;
 }
